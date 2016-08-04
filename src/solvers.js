@@ -92,14 +92,12 @@ window.countNRooksSolutions = function(n) {
 
         solutionCount++;
         board.togglePiece(rook, column);     
-        debugger;
         rook--;
         column = rookLocations[rook] + 0;
         board.togglePiece(rook, column);
         column++;
 
       } else {  
-        debugger;
         rook++;
         column = 0;
 
@@ -108,11 +106,10 @@ window.countNRooksSolutions = function(n) {
 
       if (column === n - 1) {
         board.togglePiece(rook, column);
-        debugger;
         rook--;
         column = rookLocations[rook] + 0;
       }
-      debugger;
+
       board.togglePiece(rook, column);
       column++;
     }
@@ -188,45 +185,6 @@ window.findNQueensSolution = function(n) {
     solution.push(board.attributes[i]);
   }
   return solution; 
-
-  //--------------------------------------------------------------
-
-
-  // var board = new Board({n: n});
-  // var solution = [];
-  // var pieces = 0;
-
-  // var findSolution = function(row, column) {
-  //   console.log(row, column);
-  //   board.togglePiece(row, column);
-
-  //   if (!board.hasRowConflictAt(row) && !board.hasColConflictAt(column) && !board.hasAnyMajorDiagonalConflicts() && !board.hasAnyMinorDiagonalConflicts()) {
-  //     pieces++;
-  //     if (pieces >= n) {
-  //       for (var k = 0; k < n; k++) {
-  //         solution.push(board.attributes[k]);
-  //       }
-  //       return;
-  //     }
-  //   } else {
-  //     board.togglePiece(row, column);
-  //   }
-  //   column++;
-  //   if (column === n) {
-  //     column = 0;
-  //     row++;
-  //     if (row === n) {
-  //       return;
-  //     }
-  //   }
-  //   findSolution(row, column);
-
-  // };
-
-  // findSolution(0, 0);
-
-  // console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  // return solution;
 };
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
@@ -269,14 +227,12 @@ window.countNQueensSolutions = function(n) {
         // return board;
         
         board.togglePiece(rook, column);     
-        debugger;
         rook--;
         column = rookLocations[rook] + 0;
         board.togglePiece(rook, column);
         column++;
 
       } else {  
-        debugger;
         rook++;
         column = 0;
 
@@ -285,11 +241,9 @@ window.countNQueensSolutions = function(n) {
 
       if (column === n - 1) {
         board.togglePiece(rook, column);
-        debugger;
         rook--;
         column = rookLocations[rook] + 0;
       }
-      debugger;
       board.togglePiece(rook, column);
       column++;
     }
