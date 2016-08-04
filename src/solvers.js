@@ -59,9 +59,6 @@ window.countNRooksSolutions = function(n) {
   if (n === 1) {
     return 1;
   }
-  // } else if (n === 2) {
-  //   return 2;
-  // }
 
   var board = new Board({n: n});
   
@@ -71,51 +68,9 @@ window.countNRooksSolutions = function(n) {
     rookLocations[i] = 0;
   }
 
-
   var rook = 0;
   var column = 0;
 
-  // while (rookLocations[0] < n) {
-  //   // turn on rook at current location
-  //   console.log('TOP OF WHILE', rook, column);
-  //   console.log('n', n);
-  //   board.togglePiece(rook, column);
-  //   // if there is no conflict in the location.
-  //   if (!board.hasRowConflictAt(rook) && !board.hasColConflictAt(column)) {
-  //     console.log('valid rook');
-  //     rookLocations[rook] = column;
-  //     if (rook === n - 1) {
-  //     // if current rook is the last rook add to solutions
-  //       solutionCount++;
-  //       while (rookLocations[rook] !== n - 1) {
-  //         rook--;
-  //         board.togglePiece(rook, rookLocations[rook]);          
-  //       }
-  //       // debugger;
-  //       board.togglePiece(rook, rookLocations[rook]);
-  //       // if (rook > 0) {
-  //       rook--;
-  //       if (rook < 0) {
-  //         return solutionCount;
-  //       }
-  //       board.togglePiece(rook, rookLocations[rook]);
-  //       column = rookLocations[rook] + 1;          
-  //       // }
-  //     } else {
-  //       // move to next rook and start over at 0
-  //       rook++;
-  //       column = 0;
-  //     }      
-  //   } else {
-  //     // If not a valid piece, untoggle Piece. (Not done)
-  //     board.togglePiece(rook, column);
-  //     column++;
-  //     console.log('INSIDE THE ELSE!!');
-  //   }
-  //   console.log('END OF WHILE');  
-  // }
-
-  // (0, n)
   while (!(rook === 0 && column === n)) {
     console.log(board.attributes);
 
@@ -165,8 +120,6 @@ window.countNRooksSolutions = function(n) {
 
   }
 
-  // {0: [0,0], 1:[1, 1], 2: [2, 2], 3: [3, 3]}
-
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
@@ -183,7 +136,70 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solution = undefined; //fixme
+  if (n === 1) {
+    return 1;
+  }
+
+  var board = new Board({n: n});
+  
+  var solutionCount = 0;
+  var rookLocations = {};
+  for (var i = 0; i < n; i++) {
+    rookLocations[i] = 0;
+  }
+
+  var rook = 0;
+  var column = 0;
+
+  while (!(rook === 0 && column === n)) {
+    console.log(board.attributes);
+
+    if (column > n - 1) {
+      rook--;
+      column = rookLocations[rook] + 0;
+      board.togglePiece(rook, column);
+      column++;
+    }
+
+    board.togglePiece(rook, column);
+
+    // check for good location
+    if (!board.hasRowConflictAt(rook) && !board.hasColConflictAt(column) && !board.hasAnyMajorDiagonalConflicts() && !board.hasAnyMinorDiagonalConflicts()) {
+
+      // save location
+      rookLocations[rook] = column + 0;
+
+      if (rook === n - 1) {
+
+        solutionCount++;
+        
+        board.togglePiece(rook, column);     
+        debugger;
+        rook--;
+        column = rookLocations[rook] + 0;
+        board.togglePiece(rook, column);
+        column++;
+
+      } else {  
+        debugger;
+        rook++;
+        column = 0;
+
+      }
+    } else {
+
+      if (column === n - 1) {
+        board.togglePiece(rook, column);
+        debugger;
+        rook--;
+        column = rookLocations[rook] + 0;
+      }
+      debugger;
+      board.togglePiece(rook, column);
+      column++;
+    }
+
+  }
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
