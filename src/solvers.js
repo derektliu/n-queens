@@ -118,6 +118,14 @@ window.countNRooksSolutions = function(n) {
   // (0, n)
   while (!(rook === 0 && column === n)) {
     console.log(board.attributes);
+
+    if (column > n - 1) {
+      rook--;
+      column = rookLocations[rook] + 0;
+      board.togglePiece(rook, column);
+      column++;
+    }
+
     board.togglePiece(rook, column);
 
     // check for good location
